@@ -1,4 +1,3 @@
-Perfect 👍 You can make your EduSphere README.md look very professional with an App Preview section that includes screenshots. Here’s a draft you can use:
 
 EduSphere 🎓
 
