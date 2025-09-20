@@ -3,26 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import '../screens/frontpage.dart';
 import 'loginpage.dart';
-
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
-
 class _SignUpPageState extends State<SignUpPage> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   bool _obscureText = true;
   bool _isLoading = false;
-
   void _showToast(String message, {bool success = false}) {
     Fluttertoast.showToast(
       msg: message,
@@ -30,20 +25,16 @@ class _SignUpPageState extends State<SignUpPage> {
       textColor: Colors.white,
     );
   }
-
   void _handleSignUp() {
     String name = _nameController.text.trim();
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
-
     if (name.isEmpty || email.isEmpty || password.isEmpty) {
       _showToast("Please fill all fields");
       return;
     }
-
     _createAccount(email, password);
   }
-
   Future<void> _createAccount(String email, String password) async {
     setState(() => _isLoading = true);
     try {
@@ -51,9 +42,7 @@ class _SignUpPageState extends State<SignUpPage> {
         email: email,
         password: password,
       );
-
       _showToast("Account Created Successfully", success: true);
-
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const CourseFrontPage()),
@@ -64,7 +53,6 @@ class _SignUpPageState extends State<SignUpPage> {
       setState(() => _isLoading = false);
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,8 +84,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 const SizedBox(height: 30),
-
-                // Input Fields
                 _buildTextField(_nameController, Icons.person, "Full Name"),
                 const SizedBox(height: 16),
                 _buildTextField(_emailController, Icons.email, "Email"),
@@ -110,15 +96,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   isPassword: true,
                 ),
                 const SizedBox(height: 28),
-
-                // Sign Up Button
                 _isLoading
                     ? const CircularProgressIndicator()
                     : _buildPrimaryButton("Sign Up", _handleSignUp),
 
                 const SizedBox(height: 20),
-
-                // Redirect to Login
                 RichText(
                   text: TextSpan(
                     text: "Already have an account? ",
@@ -150,8 +132,6 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
-
-  /// Custom TextField
   Widget _buildTextField(
       TextEditingController controller,
       IconData icon,
@@ -195,8 +175,6 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
-
-  /// Primary Gradient Button
   Widget _buildPrimaryButton(String text, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,

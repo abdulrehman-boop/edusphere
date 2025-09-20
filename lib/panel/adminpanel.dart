@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 class AdminPanelPage extends StatefulWidget {
   const AdminPanelPage({super.key});
-
   @override
   State<AdminPanelPage> createState() => _AdminPanelPageState();
 }
@@ -11,12 +9,10 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
   final TextEditingController _courseNameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _imageUrlController = TextEditingController();
-
   Future<void> _addCourse() async {
     final name = _courseNameController.text.trim();
     final description = _descriptionController.text.trim();
     final imageUrl = _imageUrlController.text.trim();
-
     if (name.isNotEmpty && description.isNotEmpty) {
       await FirebaseFirestore.instance.collection('courses').add({
         'name': name,
@@ -88,7 +84,6 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
       ),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

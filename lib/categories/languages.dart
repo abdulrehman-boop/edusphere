@@ -1,27 +1,19 @@
 import 'package:flutter/material.dart';
-
 import '../models/course_model.dart';
-
-
-// Language Learning Page
 class LanguagePage extends StatefulWidget {
   const LanguagePage({super.key});
-
   @override
   State<LanguagePage> createState() => _LanguagePageState();
 }
-
 class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMixin {
   String searchQuery = '';
   String sortBy = 'rating';
   bool showOnlyFree = false;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-
   final Color primaryColor = const Color(0xFF6A1B9A);
   final IconData categoryIcon = Icons.language;
   final String categoryName = 'Languages';
-
   final List<Course> courses = [
     Course(
       title: 'Spanish for Beginners',
@@ -160,7 +152,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
       specialTag: 'FREE',
     ),
   ];
-
   @override
   void initState() {
     super.initState();
@@ -177,13 +168,11 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
     ));
     _animationController.forward();
   }
-
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
   }
-
   List<Course> get filteredCourses {
     var filtered = courses.where((course) {
       final matchesSearch = course.title.toLowerCase().contains(searchQuery.toLowerCase()) ||
@@ -191,7 +180,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
       final matchesFree = !showOnlyFree || course.isFree;
       return matchesSearch && matchesFree;
     }).toList();
-
     switch (sortBy) {
       case 'rating':
         filtered.sort((a, b) => b.rating.compareTo(a.rating));
@@ -206,10 +194,8 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
         filtered.sort((a, b) => b.studentsEnrolled.compareTo(a.studentsEnrolled));
         break;
     }
-
     return filtered;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -242,15 +228,10 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Search Bar
               _buildSearchBar(),
               const SizedBox(height: 20),
-
-              // Popular Languages Section
               _buildPopularLanguagesSection(),
               const SizedBox(height: 24),
-
-              // Courses Section
               _buildCoursesSection(),
             ],
           ),
@@ -258,7 +239,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
       ),
     );
   }
-
   Widget _buildSearchBar() {
     return Container(
       decoration: BoxDecoration(
@@ -288,7 +268,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
       ),
     );
   }
-
   Widget _buildPopularLanguagesSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,8 +295,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
           ),
         ),
         const SizedBox(height: 20),
-
-        // Language Learning Tips
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
@@ -366,7 +343,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
       ],
     );
   }
-
   Widget _buildLanguageCard(String name, IconData icon, String subtitle) {
     return Container(
       width: 100,
@@ -430,7 +406,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
       ),
     );
   }
-
   Widget _buildCoursesSection() {
     final filteredList = filteredCourses;
     return Column(
@@ -462,7 +437,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
           ],
         ),
         const SizedBox(height: 16),
-
         if (filteredList.isEmpty)
           _buildEmptyState()
         else
@@ -480,7 +454,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
       ],
     );
   }
-
   Widget _buildEmptyState() {
     return Center(
       child: Padding(
@@ -513,7 +486,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
       ),
     );
   }
-
   void _showFilterBottomSheet() {
     showModalBottomSheet(
       context: context,
@@ -550,8 +522,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
                 ],
               ),
               const SizedBox(height: 20),
-
-              // Free courses toggle
               SwitchListTile(
                 title: const Text('Show only free courses'),
                 value: showOnlyFree,
@@ -563,7 +533,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
                   setModalState(() {});
                 },
               ),
-
               const SizedBox(height: 20),
               const Text(
                 'Sort by',
@@ -588,7 +557,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
                   contentPadding: EdgeInsets.zero,
                 );
               }),
-
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
@@ -613,7 +581,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
       ),
     );
   }
-
   String _getSortOptionLabel(String option) {
     switch (option) {
       case 'rating':
@@ -629,8 +596,6 @@ class _LanguagePageState extends State<LanguagePage> with TickerProviderStateMix
     }
   }
 }
-
-// Course Card Widget
 class CourseCard extends StatelessWidget {
   final Course course;
   final Color primaryColor;
@@ -640,7 +605,6 @@ class CourseCard extends StatelessWidget {
     required this.course,
     required this.primaryColor,
   });
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -657,7 +621,6 @@ class CourseCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Course Image
               Container(
                 width: 80,
                 height: 80,
@@ -694,8 +657,6 @@ class CourseCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16),
-
-              // Course Info
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -730,8 +691,6 @@ class CourseCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 8),
-
-                    // Tags
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -755,10 +714,7 @@ class CourseCard extends StatelessWidget {
                         }).toList(),
                       ),
                     ),
-
                     const SizedBox(height: 8),
-
-                    // Stats Row
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -795,8 +751,6 @@ class CourseCard extends StatelessWidget {
                   ],
                 ),
               ),
-
-              // Price and Action
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
@@ -836,7 +790,6 @@ class CourseCard extends StatelessWidget {
       ),
     );
   }
-
   Color _getTagColor(String tag) {
     switch (tag) {
       case 'FREE':
@@ -851,7 +804,6 @@ class CourseCard extends StatelessWidget {
         return primaryColor;
     }
   }
-
   String _formatDuration(int minutes) {
     if (minutes < 60) {
       return '${minutes}min';
@@ -864,7 +816,6 @@ class CourseCard extends StatelessWidget {
       return '${hours}h ${remainingMinutes}min';
     }
   }
-
   void _showCourseDetails(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -893,8 +844,6 @@ class CourseCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Course Image
               Container(
                 width: double.infinity,
                 height: 200,
@@ -932,7 +881,6 @@ class CourseCard extends StatelessWidget {
                     : null,
               ),
               const SizedBox(height: 16),
-
               Expanded(
                 child: SingleChildScrollView(
                   controller: scrollController,
@@ -955,8 +903,6 @@ class CourseCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-
-                      // Stats Row
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
@@ -976,7 +922,6 @@ class CourseCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-
                       const Text(
                         'What you\'ll learn',
                         style: TextStyle(
@@ -1022,8 +967,6 @@ class CourseCard extends StatelessWidget {
                         }).toList(),
                       ),
                       const SizedBox(height: 24),
-
-                      // Language Learning Benefits
                       if (course.category == 'Languages')
                         Container(
                           padding: const EdgeInsets.all(16),
@@ -1073,8 +1016,6 @@ class CourseCard extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Price and Enroll Section
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -1136,7 +1077,6 @@ class CourseCard extends StatelessWidget {
       ),
     );
   }
-
   void _showEnrollDialog(BuildContext context) {
     showDialog(
       context: context,

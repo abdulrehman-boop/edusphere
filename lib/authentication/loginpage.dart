@@ -3,17 +3,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../screens/frontpage.dart';
-
-// ✅ Forgot Password Page
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
-
   @override
   State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
-
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _emailController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -35,7 +30,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           const SnackBar(content: Text("Error sending reset link")));
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,25 +57,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     );
   }
 }
-
-// ✅ Login Page
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscureText = true;
   bool _isLoading = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
-
   bool _validateInputs() {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
@@ -100,7 +89,6 @@ class _LoginPageState extends State<LoginPage> {
     }
     return true;
   }
-
   Future<void> _login() async {
     if (!_validateInputs()) return;
     setState(() => _isLoading = true);
@@ -129,7 +117,6 @@ class _LoginPageState extends State<LoginPage> {
       setState(() => _isLoading = false);
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -224,7 +211,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
   Widget _buildTextField(
       TextEditingController controller,
       IconData icon,
@@ -268,7 +254,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
   Widget _buildLoginButton() {
     return GestureDetector(
       onTap: _login,

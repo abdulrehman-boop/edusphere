@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import '../models/course_cart.dart';
 import '../models/course_model.dart';
-
 class BrowseCoursesPage extends StatefulWidget {
   const BrowseCoursesPage({super.key});
-
   @override
   State<BrowseCoursesPage> createState() => _BrowseCoursesPageState();
 }
-
 class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProviderStateMixin {
   final List<String> categories = [
     'All',
@@ -21,7 +18,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
     'Music',
     'Language'
   ];
-
   String selectedCategory = 'All';
   String searchQuery = '';
   bool showOnlyFree = false;
@@ -162,7 +158,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
       tags: ['Piano', 'Music Theory', 'Practice', 'Technique'],
     ),
   ];
-
   @override
   void initState() {
     super.initState();
@@ -179,13 +174,11 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
     ));
     _animationController.forward();
   }
-
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
   }
-
   List<Course> get filteredCourses {
     var courses = allCourses.where((course) {
       final matchesCategory = selectedCategory == 'All' || course.category == selectedCategory;
@@ -194,8 +187,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
       final matchesFreeFilter = !showOnlyFree || course.isFree;
       return matchesCategory && matchesSearch && matchesFreeFilter;
     }).toList();
-
-    // Sort courses
     switch (sortBy) {
       case 'rating':
         courses.sort((a, b) => b.rating.compareTo(a.rating));
@@ -210,10 +201,8 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
         courses.sort((a, b) => b.studentsEnrolled.compareTo(a.studentsEnrolled));
         break;
     }
-
     return courses;
   }
-
   String formatDuration(int minutes) {
     if (minutes < 60) {
       return '${minutes}min';
@@ -226,14 +215,12 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
       return '${hours}h ${remainingMinutes}min';
     }
   }
-
   String _formatStudentCount(int count) {
     if (count >= 1000) {
       return '${(count / 1000).toStringAsFixed(0)}k';
     }
     return count.toString();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -268,7 +255,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              // Search Bar
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -297,8 +283,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
                 ),
               ),
               const SizedBox(height: 16),
-
-              // Category Chips - Fixed overflow
               SizedBox(
                 height: 50,
                 child: ListView.builder(
@@ -340,8 +324,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
                 ),
               ),
               const SizedBox(height: 16),
-
-              // Results count and view toggle - Fixed overflow
               Row(
                 children: [
                   Flexible(
@@ -374,8 +356,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
                 ],
               ),
               const SizedBox(height: 16),
-
-              // Course List
               Expanded(
                 child: filteredCourses.isEmpty
                     ? _buildEmptyState()
@@ -392,13 +372,10 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
       ),
     );
   }
-
   Widget _buildGridView() {
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Calculate optimal cross axis count based on screen width
         int crossAxisCount = constraints.maxWidth > 600 ? 3 : 2;
-
         return GridView.builder(
           key: const ValueKey('grid'),
           itemCount: filteredCourses.length,
@@ -415,7 +392,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
       },
     );
   }
-
   Widget _buildListView() {
     return ListView.builder(
       key: const ValueKey('list'),
@@ -428,7 +404,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
       },
     );
   }
-
   Widget _buildEmptyState() {
     return Center(
       child: Column(
@@ -460,7 +435,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
       ),
     );
   }
-
   void _showFilterBottomSheet() {
     showModalBottomSheet(
       context: context,
@@ -498,8 +472,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
                 ],
               ),
               const SizedBox(height: 20),
-
-              // Free courses toggle
               SwitchListTile(
                 title: const Text('Show only free courses'),
                 value: showOnlyFree,
@@ -512,8 +484,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
                 contentPadding: EdgeInsets.zero,
               ),
               const SizedBox(height: 20),
-
-              // Sort options
               const Text(
                 'Sort by',
                 style: TextStyle(
@@ -536,7 +506,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
                   contentPadding: EdgeInsets.zero,
                 );
               }),
-
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
@@ -557,7 +526,6 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
       ),
     );
   }
-
   String _getSortOptionLabel(String option) {
     switch (option) {
       case 'rating':
@@ -573,13 +541,9 @@ class _BrowseCoursesPageState extends State<BrowseCoursesPage> with TickerProvid
     }
   }
 }
-
-// Grid Card Widget - Fixed overflow issues
 class CourseGridCard extends StatelessWidget {
   final Course course;
-
   const CourseGridCard({super.key, required this.course});
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -657,8 +621,6 @@ class CourseGridCard extends StatelessWidget {
               ),
             ),
           ),
-
-          // Course Info - Fixed overflow
           Expanded(
             flex: 2,
             child: Padding(
@@ -728,18 +690,14 @@ class CourseGridCard extends StatelessWidget {
     );
   }
 }
-
-// List Card Widget - Fixed overflow issues
 class CourseListCard extends StatelessWidget {
   final Course course;
   final String Function(int) formatStudentCount;
-
   const CourseListCard({
     super.key,
     required this.course,
     required this.formatStudentCount,
   });
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -751,7 +709,6 @@ class CourseListCard extends StatelessWidget {
         child: IntrinsicHeight(
           child: Row(
             children: [
-              // Course Image
               Container(
                 width: 70,
                 height: 70,
@@ -792,8 +749,6 @@ class CourseListCard extends StatelessWidget {
                     : null,
               ),
               const SizedBox(width: 12),
-
-              // Course Info - Fixed overflow
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -847,8 +802,6 @@ class CourseListCard extends StatelessWidget {
                   ],
                 ),
               ),
-
-              // Price and Action
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

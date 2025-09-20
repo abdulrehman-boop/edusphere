@@ -12,7 +12,6 @@ class Course {
   String? level;
   String? specialTag;
   List<String> tags = [];
-
   Course({
     required this.title,
     required this.instructor,

@@ -2,20 +2,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
-
   @override
   State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
-
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _emailController = TextEditingController();
   bool _isLoading = false;
   bool _emailSent = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   void _showSnackBar(String message, {bool isError = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -25,40 +21,30 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       ),
     );
   }
-
   bool _validateEmail() {
     final email = _emailController.text.trim();
-
     if (email.isEmpty) {
       _showSnackBar("Please enter your email", isError: true);
       return false;
     }
-
     final emailRegex = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
     if (!emailRegex.hasMatch(email)) {
       _showSnackBar("Please enter a valid email address", isError: true);
       return false;
     }
-
     return true;
   }
-
   Future<void> _resetPassword() async {
     if (!_validateEmail()) return;
-
     setState(() => _isLoading = true);
-
     try {
       await _auth.sendPasswordResetEmail(
         email: _emailController.text.trim(),
       );
-
       setState(() => _emailSent = true);
       _showSnackBar("Password reset email sent successfully!");
-
     } on FirebaseAuthException catch (e) {
       String errorMessage = "Failed to send reset email";
-
       if (e.code == 'user-not-found') {
         errorMessage = "No user found for that email address.";
       } else if (e.code == 'invalid-email') {
@@ -66,7 +52,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       } else {
         errorMessage = e.message ?? errorMessage;
       }
-
       _showSnackBar(errorMessage, isError: true);
     } catch (e) {
       _showSnackBar("An unexpected error occurred.", isError: true);
@@ -74,13 +59,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       setState(() => _isLoading = false);
     }
   }
-
   @override
   void dispose() {
     _emailController.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,7 +152,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       ),
     );
   }
-
   Widget _buildTextField(
       TextEditingController controller,
       IconData icon,
@@ -201,7 +183,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       ),
     );
   }
-
   Widget _buildResetButton() {
     return GestureDetector(
       onTap: _resetPassword,
@@ -235,7 +216,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       ),
     );
   }
-
   Widget _buildResendButton() {
     return GestureDetector(
       onTap: _isLoading ? null : _resetPassword,
@@ -282,7 +262,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       ),
     );
   }
-
   Widget _buildBackToLoginButton() {
     return GestureDetector(
       onTap: () => Navigator.of(context).pop(),

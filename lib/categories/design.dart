@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
-
 import '../models/course_model.dart';
-
-// Design Page
 class DesignPage extends StatefulWidget {
   const DesignPage({super.key});
-
   @override
   State<DesignPage> createState() => _DesignPageState();
 }
-
 class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
   String searchQuery = '';
   String sortBy = 'rating';
   bool showOnlyFree = false;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-
   final Color primaryColor = const Color(0xFF9C27B0);
   final IconData categoryIcon = Icons.palette;
   final String categoryName = 'Design';
-
   final List<Course> courses = [
     Course(
       title: 'UI/UX Design Complete Masterclass',
@@ -159,7 +152,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
       specialTag: 'FREE',
     ),
   ];
-
   @override
   void initState() {
     super.initState();
@@ -176,13 +168,11 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
     ));
     _animationController.forward();
   }
-
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
   }
-
   List<Course> get filteredCourses {
     var filtered = courses.where((course) {
       final matchesSearch = course.title.toLowerCase().contains(searchQuery.toLowerCase()) ||
@@ -190,7 +180,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
       final matchesFree = !showOnlyFree || course.isFree;
       return matchesSearch && matchesFree;
     }).toList();
-
     switch (sortBy) {
       case 'rating':
         filtered.sort((a, b) => b.rating.compareTo(a.rating));
@@ -205,10 +194,8 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
         filtered.sort((a, b) => b.studentsEnrolled.compareTo(a.studentsEnrolled));
         break;
     }
-
     return filtered;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -244,15 +231,10 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Search Bar
               _buildSearchBar(),
               const SizedBox(height: 20),
-
-              // Design Categories Section
               _buildDesignCategoriesSection(),
               const SizedBox(height: 24),
-
-              // Courses Section
               _buildCoursesSection(),
             ],
           ),
@@ -260,7 +242,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
       ),
     );
   }
-
   Widget _buildSearchBar() {
     return Container(
       decoration: BoxDecoration(
@@ -290,7 +271,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
       ),
     );
   }
-
   Widget _buildDesignCategoriesSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -318,8 +298,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
           ),
         ),
         const SizedBox(height: 20),
-
-        // Design Principles Tips
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
@@ -370,7 +348,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
       ],
     );
   }
-
   Widget _buildCategoryCard(String name, IconData icon, String subtitle, String description) {
     return Container(
       width: 130,
@@ -446,7 +423,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
       ),
     );
   }
-
   Widget _buildCoursesSection() {
     final filteredList = filteredCourses;
     return Column(
@@ -477,7 +453,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
           ],
         ),
         const SizedBox(height: 16),
-
         if (filteredList.isEmpty)
           _buildEmptyState()
         else
@@ -495,7 +470,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
       ],
     );
   }
-
   Widget _buildEmptyState() {
     return Center(
       child: Padding(
@@ -528,7 +502,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
       ),
     );
   }
-
   void _showFilterBottomSheet() {
     showModalBottomSheet(
       context: context,
@@ -568,8 +541,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                 ],
               ),
               const SizedBox(height: 20),
-
-              // Free courses toggle
               SwitchListTile(
                 title: const Text('Show only free courses'),
                 value: showOnlyFree,
@@ -582,7 +553,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                 },
                 contentPadding: EdgeInsets.zero,
               ),
-
               const SizedBox(height: 20),
               const Text(
                 'Sort by',
@@ -607,7 +577,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
                   contentPadding: EdgeInsets.zero,
                 );
               }),
-
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
@@ -632,7 +601,6 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
       ),
     );
   }
-
   String _getSortOptionLabel(String option) {
     switch (option) {
       case 'rating':
@@ -648,18 +616,14 @@ class _DesignPageState extends State<DesignPage> with TickerProviderStateMixin {
     }
   }
 }
-
-// Course Card Widget
 class CourseCard extends StatelessWidget {
   final Course course;
   final Color primaryColor;
-
   const CourseCard({
     super.key,
     required this.course,
     required this.primaryColor,
   });
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -676,7 +640,6 @@ class CourseCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Course Image
               Container(
                 width: 80,
                 height: 80,
@@ -713,8 +676,6 @@ class CourseCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16),
-
-              // Course Info
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -748,8 +709,6 @@ class CourseCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 8),
-
-                    // Tags
                     Wrap(
                       spacing: 4,
                       runSpacing: 4,
@@ -771,10 +730,7 @@ class CourseCard extends StatelessWidget {
                         );
                       }).toList(),
                     ),
-
                     const SizedBox(height: 8),
-
-                    // Stats Row
                     Wrap(
                       spacing: 12,
                       runSpacing: 4,
@@ -823,8 +779,6 @@ class CourseCard extends StatelessWidget {
                   ],
                 ),
               ),
-
-              // Price and Action
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -863,7 +817,6 @@ class CourseCard extends StatelessWidget {
       ),
     );
   }
-
   Color _getTagColor(String tag) {
     switch (tag) {
       case 'FREE':
@@ -878,7 +831,6 @@ class CourseCard extends StatelessWidget {
         return primaryColor;
     }
   }
-
   String _formatDuration(int minutes) {
     if (minutes < 60) {
       return '${minutes}min';
@@ -891,14 +843,12 @@ class CourseCard extends StatelessWidget {
       return '${hours}h ${remainingMinutes}min';
     }
   }
-
   String _formatStudentCount(int count) {
     if (count >= 1000) {
       return '${(count / 1000).toStringAsFixed(0)}k';
     }
     return count.toString();
   }
-
   void _showCourseDetails(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -915,7 +865,6 @@ class CourseCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Handle
               Center(
                 child: Container(
                   width: 40,
@@ -927,8 +876,6 @@ class CourseCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Course Image
               Container(
                 width: double.infinity,
                 height: 200,
@@ -966,7 +913,6 @@ class CourseCard extends StatelessWidget {
                     : null,
               ),
               const SizedBox(height: 16),
-
               Expanded(
                 child: SingleChildScrollView(
                   controller: scrollController,
@@ -989,8 +935,6 @@ class CourseCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-
-                      // Stats Row
                       Wrap(
                         spacing: 16,
                         runSpacing: 8,
@@ -1022,7 +966,6 @@ class CourseCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-
                       const Text(
                         'What you\'ll learn',
                         style: TextStyle(
@@ -1036,8 +979,6 @@ class CourseCard extends StatelessWidget {
                         style: const TextStyle(fontSize: 16),
                       ),
                       const SizedBox(height: 16),
-
-                      // Key Topics
                       const Text(
                         'Key Topics Covered',
                         style: TextStyle(
@@ -1068,8 +1009,6 @@ class CourseCard extends StatelessWidget {
                         }).toList(),
                       ),
                       const SizedBox(height: 24),
-
-                      // Design Portfolio Info
                       if (course.category == 'Design')
                         Container(
                           padding: const EdgeInsets.all(16),
@@ -1119,8 +1058,6 @@ class CourseCard extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Price and Enroll Section
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -1181,7 +1118,6 @@ class CourseCard extends StatelessWidget {
       ),
     );
   }
-
   void _showEnrollDialog(BuildContext context) {
     showDialog(
       context: context,

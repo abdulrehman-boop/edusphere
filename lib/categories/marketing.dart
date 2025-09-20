@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
-
 import '../models/course_model.dart';
-
-// Marketing Page
 class MarketingPage extends StatefulWidget {
   const MarketingPage({super.key});
-
   @override
   State<MarketingPage> createState() => _MarketingPageState();
 }
-
 class _MarketingPageState extends State<MarketingPage> with TickerProviderStateMixin {
   String searchQuery = '';
   String sortBy = 'rating';
   bool showOnlyFree = false;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-
   final Color primaryColor = const Color(0xFF9C27B0);
   final IconData categoryIcon = Icons.campaign;
   final String categoryName = 'Marketing';
-
   final List<Course> courses = [
     Course(
       title: 'Digital Marketing Complete Guide',
@@ -159,7 +152,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
       specialTag: 'FREE',
     ),
   ];
-
   @override
   void initState() {
     super.initState();
@@ -176,13 +168,11 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
     ));
     _animationController.forward();
   }
-
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
   }
-
   List<Course> get filteredCourses {
     var filtered = courses.where((course) {
       final matchesSearch = course.title.toLowerCase().contains(searchQuery.toLowerCase()) ||
@@ -190,7 +180,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
       final matchesFree = !showOnlyFree || course.isFree;
       return matchesSearch && matchesFree;
     }).toList();
-
     switch (sortBy) {
       case 'rating':
         filtered.sort((a, b) => b.rating.compareTo(a.rating));
@@ -205,10 +194,8 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
         filtered.sort((a, b) => b.studentsEnrolled.compareTo(a.studentsEnrolled));
         break;
     }
-
     return filtered;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -241,15 +228,10 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Search Bar
               _buildSearchBar(),
               const SizedBox(height: 20),
-
-              // Marketing Channels Section
               _buildMarketingChannelsSection(),
               const SizedBox(height: 24),
-
-              // Courses Section
               _buildCoursesSection(),
             ],
           ),
@@ -257,7 +239,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
       ),
     );
   }
-
   Widget _buildSearchBar() {
     return Container(
       decoration: BoxDecoration(
@@ -287,7 +268,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
       ),
     );
   }
-
   Widget _buildMarketingChannelsSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -315,8 +295,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
           ),
         ),
         const SizedBox(height: 20),
-
-        // Marketing Success Tips
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
@@ -363,7 +341,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
       ],
     );
   }
-
   Widget _buildChannelCard(String name, IconData icon, String subtitle, String description) {
     return Container(
       width: 140,
@@ -435,7 +412,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
       ),
     );
   }
-
   Widget _buildCoursesSection() {
     final filteredList = filteredCourses;
     return Column(
@@ -466,7 +442,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
           ],
         ),
         const SizedBox(height: 16),
-
         if (filteredList.isEmpty)
           _buildEmptyState()
         else
@@ -484,7 +459,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
       ],
     );
   }
-
   Widget _buildEmptyState() {
     return Center(
       child: Padding(
@@ -517,7 +491,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
       ),
     );
   }
-
   void _showFilterBottomSheet() {
     showModalBottomSheet(
       context: context,
@@ -554,8 +527,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
                 ],
               ),
               const SizedBox(height: 20),
-
-              // Free courses toggle
               SwitchListTile(
                 title: const Text('Show only free courses'),
                 value: showOnlyFree,
@@ -567,7 +538,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
                   setModalState(() {});
                 },
               ),
-
               const SizedBox(height: 20),
               const Text(
                 'Sort by',
@@ -592,7 +562,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
                   contentPadding: EdgeInsets.zero,
                 );
               }),
-
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
@@ -617,7 +586,6 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
       ),
     );
   }
-
   String _getSortOptionLabel(String option) {
     switch (option) {
       case 'rating':
@@ -633,18 +601,14 @@ class _MarketingPageState extends State<MarketingPage> with TickerProviderStateM
     }
   }
 }
-
-// Course Card Widget
 class CourseCard extends StatelessWidget {
   final Course course;
   final Color primaryColor;
-
   const CourseCard({
     super.key,
     required this.course,
     required this.primaryColor,
   });
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -661,7 +625,6 @@ class CourseCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Course Image
               Container(
                 width: 80,
                 height: 80,
@@ -698,8 +661,6 @@ class CourseCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16),
-
-              // Course Info
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -733,8 +694,6 @@ class CourseCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 8),
-
-                    // Tags
                     Wrap(
                       spacing: 4,
                       runSpacing: 4,
@@ -756,10 +715,7 @@ class CourseCard extends StatelessWidget {
                         );
                       }).toList(),
                     ),
-
                     const SizedBox(height: 8),
-
-                    // Stats Row
                     Wrap(
                       spacing: 12,
                       runSpacing: 4,
@@ -808,8 +764,6 @@ class CourseCard extends StatelessWidget {
                   ],
                 ),
               ),
-
-              // Price and Action
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -848,7 +802,6 @@ class CourseCard extends StatelessWidget {
       ),
     );
   }
-
   Color _getTagColor(String tag) {
     switch (tag) {
       case 'FREE':
@@ -863,7 +816,6 @@ class CourseCard extends StatelessWidget {
         return primaryColor;
     }
   }
-
   String _formatDuration(int minutes) {
     if (minutes < 60) {
       return '${minutes}min';
@@ -876,7 +828,6 @@ class CourseCard extends StatelessWidget {
       return '${hours}h ${remainingMinutes}min';
     }
   }
-
   void _showCourseDetails(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -944,7 +895,6 @@ class CourseCard extends StatelessWidget {
                     : null,
               ),
               const SizedBox(height: 16),
-
               Expanded(
                 child: SingleChildScrollView(
                   controller: scrollController,
@@ -967,8 +917,6 @@ class CourseCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-
-                      // Stats Row
                       Row(
                         children: [
                           Icon(Icons.star, color: Colors.orange, size: 20),
@@ -985,7 +933,6 @@ class CourseCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-
                       const Text(
                         'What you\'ll learn',
                         style: TextStyle(
@@ -999,8 +946,6 @@ class CourseCard extends StatelessWidget {
                         style: const TextStyle(fontSize: 16),
                       ),
                       const SizedBox(height: 16),
-
-                      // Key Topics
                       const Text(
                         'Key Topics Covered',
                         style: TextStyle(
@@ -1031,8 +976,6 @@ class CourseCard extends StatelessWidget {
                         }).toList(),
                       ),
                       const SizedBox(height: 24),
-
-                      // Marketing ROI Info
                       if (course.category == 'Marketing')
                         Container(
                           padding: const EdgeInsets.all(16),
@@ -1078,8 +1021,6 @@ class CourseCard extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Price and Enroll Section
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -1141,7 +1082,6 @@ class CourseCard extends StatelessWidget {
       ),
     );
   }
-
   void _showEnrollDialog(BuildContext context) {
     showDialog(
       context: context,

@@ -6,13 +6,8 @@ import '../categories/marketing.dart';
 import '../categories/programming.dart';
 import '../panel/adminpanel.dart';
 import 'browsepage.dart';
-
-// ✅ Import category pages
-
-
 class CourseFrontPage extends StatelessWidget {
   const CourseFrontPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -180,7 +175,6 @@ class CourseFrontPage extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildCategoryCard(
       IconData icon,
       String title,
