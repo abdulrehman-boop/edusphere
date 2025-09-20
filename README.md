@@ -1,16 +1,39 @@
-# courseapp
+Perfect 👍 You can make your EduSphere README.md look very professional with an App Preview section that includes screenshots. Here’s a draft you can use:
 
-A new Flutter project.
+EduSphere 🎓
 
-## Getting Started
+EduSphere is a Flutter-powered course marketplace app with Firebase backend. It allows students to explore, purchase, and learn from courses while giving admins full control through a powerful panel.
 
-This project is a starting point for a Flutter application.
+✨ Features
 
-A few resources to get you started if this is your first Flutter project:
+🔐 Firebase Authentication (Email/Google Sign-In)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+📚 Browse, purchase, and enroll in courses
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+🛒 Secure Stripe payment integration
+
+🗂️ Real-time Firestore database support
+
+🛠️ Admin panel for managing courses, categories & users
+
+🎨 Clean and modern UI with responsive design
+
+🚀 Tech Stack
+
+Frontend: Flutter (Dart)
+
+Backend: Firebase (Firestore, Auth, Cloud Functions)
+
+Payments: Stripe Integration
+
+State Management: Provider / Riverpod
+
+📱 App Screenshots
+
+📌 Use Cases
+
+Online course marketplace
+
+E-learning platform for schools/universities
+
+Training apps with progress tracking
