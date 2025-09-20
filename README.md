@@ -1,9 +1,9 @@
 
-EduSphere 🎓
+## EduSphere 🎓
 
 EduSphere is a Flutter-powered course marketplace app with Firebase backend. It allows students to explore, purchase, and learn from courses while giving admins full control through a powerful panel.
 
-✨ Features
+## Features
 
 🔐 Firebase Authentication (Email/Google Sign-In)
 
@@ -28,6 +28,8 @@ Payments: Stripe Integration
 State Management: Provider / Riverpod
 
 📱 App Screenshots
+
+I have added app images in folder (screenshots)
 
 📌 Use Cases
 
